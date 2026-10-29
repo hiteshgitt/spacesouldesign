@@ -1,18 +1,14 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
+import { archivoBlack, jetbrainsMono } from "@/assets/og/fonts";
 
 export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
-  const dir = join(process.cwd(), "src/assets/og");
-  const [display, mono] = await Promise.all([
-    readFile(join(dir, "ArchivoBlack-Regular.ttf")),
-    readFile(join(dir, "JetBrainsMono-Regular.ttf")),
-  ]);
+  const display = Buffer.from(archivoBlack, "base64");
+  const mono = Buffer.from(jetbrainsMono, "base64");
 
   const grid =
     "linear-gradient(rgba(90,102,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(90,102,255,0.14) 1px, transparent 1px)";
