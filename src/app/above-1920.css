@@ -1,0 +1,41 @@
+/* ──────────────────────────────────────────────────────────────
+   ABOVE 1920px
+   Keeps the 1920px composition on wider screens. Loaded after
+   globals.css; nothing here applies at 1920px or below.
+
+   Every type/space token is clamp(min, vw, max-in-rem), so scaling
+   the root font by vw/1920 lifts each rem max by exactly
+   viewport / 1920 — the same result as switching to the vw middle
+   value, without touching the original clamps. Media queries still
+   use the initial 16px rem, so breakpoints are unaffected.
+   Remaining px values are handled per page below.
+   ────────────────────────────────────────────────────────────── */
+
+@media screen and (min-width: 1921px) {
+  /* ── Global ─────────────────────────────────────── */
+  html {
+    font-size: calc(16 / 1920 * 100vw);
+  }
+  /* The 2200px cap would letterbox the layout; content stays full width
+     and the gutter (a scaled rem max) keeps its 1920 proportion. */
+  .shell {
+    max-width: none;
+  }
+  .blueprint-grid {
+    background-size: calc(64 / 1920 * 100vw) calc(64 / 1920 * 100vw);
+  }
+  /* Hairlines, reg marks, select arrows and the btn-arrow nudge stay in px. */
+
+  /* ── Home ───────────────────────────────────────── */
+  /* Selected works hover preview: w-[min(22vw,20rem)] scales via rem.
+     Footer wordmark is sized in cqi against the shell, so it scales with it. */
+
+  /* ── Work index / Work detail ───────────────────── */
+  /* No px values; ch and rem caps scale with the root font. */
+
+  /* ── Services / Studio / Journal / Journal article ─ */
+  /* No px values; ch and rem caps scale with the root font. */
+
+  /* ── Contact ────────────────────────────────────── */
+  /* Form fields and chips are rem-based and scale with the root font. */
+}
